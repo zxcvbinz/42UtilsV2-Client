@@ -20,10 +20,9 @@ installOhMyZsh() {
     if [ ! -d $HOME/.oh-my-zsh ]; then
         git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
         cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
-        echo "${WARN}Installed oh-my-zsh"
     fi
     echo "export PATH=\"\$HOME/.42Utils/exec/:\$PATH\"" >> ~/.zshrc
-    export PATH=$HOME/.42utils/exec:$PATH
+    chmod 755 $HOME/.42utils/exec/42Hub
 }
 
 installUtils() {
@@ -53,3 +52,5 @@ if Warning; then
 else
     echo "Abort."
 fi
+
+zsh
