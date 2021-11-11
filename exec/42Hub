@@ -2,10 +2,6 @@
 
 # Methods supports
 
-installOhMyZsh() {
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-}
-
 installPower10kBasic() {
     git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
     rm $HOME/.zshrc
@@ -20,6 +16,7 @@ installPowerAutoSuggestions() {
 installPower10kComplete() {
     installPower10kBasic
     installPowerAutoSuggestions
+}
 
 installTerminalComplete() {
     installOhMyZsh
@@ -27,3 +24,12 @@ installTerminalComplete() {
     installPowerAutoSuggestions
 }
 
+Help()
+{
+   echo ""
+   echo "42Hub installPackage beta 0.1 by zxcvbinz"
+   echo
+   echo "Syntax: 42Hub install"
+}
+
+Help
