@@ -53,4 +53,4 @@ else
     echo "Abort."
 fi
 
-zsh
+source ~/.zshrc
