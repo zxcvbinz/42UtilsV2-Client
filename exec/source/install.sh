@@ -30,20 +30,23 @@ installUtils() {
         git clone https://github.com/zxcvbinz/42Utils-v2.git $HOME/.42utils
         installOhMyZsh
         if ! isInstalled; then
-            echo "${WARN}${COMPLETE}42Utils has been installed..\n\n${HINT}- Start with '42Hub' command\n${normal}"
+            echo "${WARN}${COMPLETE}42Utils has been installed..\n\n${HINT}- Reload your session with 'source ~/.zshrc'\n\n${HINT}- Start with '42Hub' command\n${normal}"
         fi
     else
-        echo "${WARN}42Utils has been installed..\n\n${HINT}- Start with '42Hub' command\n${normal}"
+        echo "${WARN}42Utils has been installed..\n\n${HINT}- Reload your session with 'source ~/.zshrc'\n\n${HINT}- Start with '42Hub' command\n${normal}"
     fi
 }
 
 Warning() {
-    if read -q "choice?${WARN}This tool overwrite your zsh configuration${normal}, are you sure? y/Y: "; then
-        echo "\n"
+    if isInstalled; then
+        if read -q "choice?${WARN}This tool overwrite your zsh configuration${normal}, are you sure? y/Y: "; then
+            echo "\n"
+            return 0
+        else 
+            echo "\n"
+            return 1
+        fi
         return 0
-    else 
-        echo "\n"
-        return 1
     fi
 }
 
@@ -52,5 +55,3 @@ if Warning; then
 else
     echo "Abort."
 fi
-
-source ~/.zshrc
