@@ -22,12 +22,13 @@ installOhMyZsh() {
         cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
         echo "${WARN}Installed oh-my-zsh"
     fi
-    echo "export PATH=\"\$HOME/.42Utils/exec/:\$PATH\"" >> ~/.zshrc  
+    echo "export PATH=\"\$HOME/.42Utils/exec/:\$PATH\"" >> ~/.zshrc
+    export PATH=$HOME/.42utils/exec:$PATH
 }
 
 installUtils() {
     if isInstalled; then
-        git clone git@github.com:zxcvbinz/42Utils-v2.git $HOME/.42utils
+        git clone https://github.com/zxcvbinz/42Utils-v2.git $HOME/.42utils
         installOhMyZsh
         if ! isInstalled; then
             echo "${WARN}${COMPLETE}42Utils has been installed..\n\n${HINT}- Start with '42Hub' command\n${normal}"
@@ -35,7 +36,6 @@ installUtils() {
     else
         echo "${WARN}42Utils has been installed..\n\n${HINT}- Start with '42Hub' command\n${normal}"
     fi
-    
 }
 
 Warning() {

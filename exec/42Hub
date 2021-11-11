@@ -30,6 +30,7 @@ Help()
    echo "42Hub installPackage beta 0.1 by zxcvbinz"
    echo
    echo "Syntax: 42Hub install"
+   echo
 }
 
 Help
