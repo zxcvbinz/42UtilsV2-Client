@@ -11,6 +11,14 @@ WARN="${bold}[${orange}WARNING${normal}${bold}] "
 HINT="${bold}[${green}HINT${normal}${bold}] "
 COMPLETE="${bold}[${magenta}COMPLETE${normal}${bold}] "
 
+installCustomCommands() {
+     if [ ! -f $HOME/.42Commands ]; then
+        cp $HOME/.42utils/utilsV1/42Commands/* $HOME/.42Commands/
+    else
+        echo "${COMPLETE}Correct 42Commands is installed, reload the terminal to complete.\n"
+    fi
+}
+
 customConfigP10k() {
     if [ ! -f $HOME/.p10k.zsh ]; then
         cp $HOME/.42utils/exec/main/.p10k.zsh $HOME/
@@ -21,7 +29,6 @@ customConfigP10k() {
 
 installFonts() {
     if [ ! -f  $HOME/Library/Fonts/MesloLGS\ NF\ Regular.ttf ]; then
-        rm -f $HOME/Library/Fonts/*
         cp $HOME/.42utils/exec/main/Fonts/* $HOME/Library/Fonts/
     else
         echo "${COMPLETE}Correct Font is installed, reload the system if you don't see.\n"
@@ -63,6 +70,7 @@ installTerminalCustom() {
     installPowerAutoSuggestions
     installFonts
     customConfigP10k
+    installCustomCommands
 }
 
 Help()

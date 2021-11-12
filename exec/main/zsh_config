@@ -116,7 +116,7 @@ fi
 osascript -e 'tell app "System Events" to tell appearance preferences to set dark mode to 1'
 
 export PATH="/goinfre/.test/.brew/opt/openjdk/bin:$PATH"
-export PATH="$HOME/.42utils-commands:$PATH"
+export PATH="$HOME/.42Commands:$PATH"
 export HOMEBREW_CASK_OPTS="--appdir=~/goinfre/.Applications --caskroom=~/.goinfre/.test/.brew/Caskroom"
 42software
 
