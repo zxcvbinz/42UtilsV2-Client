@@ -2,26 +2,67 @@
 
 # Methods supports
 
+normal=`tput sgr0`
+bold=`tput bold`
+orange=`tput setaf 172`
+green=`tput setaf 2`
+magenta=`tput setaf 9`
+WARN="${bold}[${orange}WARNING${normal}${bold}] "
+HINT="${bold}[${green}HINT${normal}${bold}] "
+COMPLETE="${bold}[${magenta}COMPLETE${normal}${bold}] "
+
+customConfigP10k() {
+    if [ ! -f $HOME/.p10k.zsh ]; then
+        cp $HOME/.42utils/exec/main/.p10k.zsh $HOME/
+    else
+        echo "${COMPLETE}Correct p10k theme is installed, reload the terminal to complete.\n"
+    fi
+}
+
+installFonts() {
+    if [ ! -f  $HOME/Library/Fonts/MesloLGS\ NF\ Regular.ttf ]; then
+        rm -f $HOME/Library/Fonts/*
+        cp $HOME/.42utils/exec/main/Fonts/* $HOME/Library/Fonts/
+    else
+        echo "${COMPLETE}Correct Font is installed, reload the system if you don't see.\n"
+    fi
+}
+
 installPower10kBasic() {
-    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-    rm $HOME/.zshrc
+    if [ ! -d ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k ]; then
+        git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+    else
+        echo "\n${COMPLETE}powerlevel10k is installed\n"
+    fi
+    if [ -d $HOME/.zshrc ]; then
+        echo "${WARN}deleted original zshrc"
+        rm $HOME/.zshrc
+    fi
+    
+    cp $HOME/.42utils/exec/main/zsh_config $HOME/.zshrc
+
+    if [ -f $HOME/.zshrc ]; then
+        echo "${COMPLETE}Correct zshrc file is installed"
+    else
+        echo "${WARN}Error with zshrc install"
+    fi
 }
 
 installPowerAutoSuggestions() {
-    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    if [ ! -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions ]; then
+        git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    else
+        echo "\n${COMPLETE}zsh-autosuggestions is installed\n"
+    fi
 }
 
 #Install Methods
 
-installPower10kComplete() {
+installTerminalCustom() {
     installPower10kBasic
     installPowerAutoSuggestions
-}
-
-installTerminalComplete() {
-    installOhMyZsh
-    installPower10kBasic
-    installPowerAutoSuggestions
+    installFonts
+    customConfigP10k
 }
 
 Help()
@@ -33,4 +74,8 @@ Help()
    echo
 }
 
-Help
+if [[ "$1" == "" ]]; then
+    Help
+elif [[ "$1" == "install" ]]; then
+    installTerminalCustom
+fi
