@@ -13,7 +13,7 @@ COMPLETE="${bold}[${magenta}COMPLETE${normal}${bold}] "
 
 installCustomCommands() {
      if [ ! -f $HOME/.42Commands ]; then
-        cp $HOME/.42utils/utilsV1/42Commands/* $HOME/.42Commands/
+        cp -r $HOME/.42utils/utilsV1/42Commands $HOME/.42Commands
     else
         echo "${COMPLETE}Correct 42Commands is installed, reload the terminal to complete.\n"
     fi
