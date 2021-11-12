@@ -1,37 +1,41 @@
 #!/bin/zsh
 
-# Methods supports
-
 normal=`tput sgr0`
 bold=`tput bold`
-orange=`tput setaf 172`
-green=`tput setaf 2`
+orange=`tput setaf 208`
+green=`tput setaf 46`
 magenta=`tput setaf 9`
+red=`tput setaf 196`
 WARN="${bold}[${orange}WARNING${normal}${bold}] "
-HINT="${bold}[${green}HINT${normal}${bold}] "
-COMPLETE="${bold}[${magenta}COMPLETE${normal}${bold}] "
+HINT="${bold}[${magenta}HINT${normal}${bold}] "
+COMPLETE="${bold}[${green}COMPLETE${normal}${bold}] "
+ERROR="${bold}[${red}ERROR${normal}${bold}] "
 
 installCustomCommands() {
      if [ ! -f $HOME/.42Commands ]; then
-        cp -r $HOME/.42utils/utilsV1/42Commands $HOME/.42Commands
-    else
+        mdkir $HOME/.42Commands
+        cp $HOME/.42utils/utilsV1/42Commands/* $HOME/.42Commands/*
         echo "${COMPLETE}Correct 42Commands is installed, reload the terminal to complete.\n"
+    else
+        echo "${WARN}Correct 42Commands is installed, reload the terminal to complete.\n"
     fi
 }
 
 customConfigP10k() {
     if [ ! -f $HOME/.p10k.zsh ]; then
         cp $HOME/.42utils/exec/main/.p10k.zsh $HOME/
-    else
         echo "${COMPLETE}Correct p10k theme is installed, reload the terminal to complete.\n"
+    else
+        echo "${WARN}Correct p10k theme is installed, reload the terminal to complete.\n"
     fi
 }
 
 installFonts() {
     if [ ! -f  $HOME/Library/Fonts/MesloLGS\ NF\ Regular.ttf ]; then
         cp $HOME/.42utils/exec/main/Fonts/* $HOME/Library/Fonts/
-    else
         echo "${COMPLETE}Correct Font is installed, reload the system if you don't see.\n"
+    else
+        echo "${WARN}Correct Font is installed, reload the system if you don't see.\n"
     fi
 }
 
@@ -51,7 +55,7 @@ installPower10kBasic() {
     if [ -f $HOME/.zshrc ]; then
         echo "${COMPLETE}Correct zshrc file is installed"
     else
-        echo "${WARN}Error with zshrc install"
+        echo "${ERROR}Error with zshrc install"
     fi
 }
 
@@ -73,17 +77,57 @@ installTerminalCustom() {
     installCustomCommands
 }
 
+checkInstallation() {
+    #Check Suggestions
+    if [ ! -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions ]; then
+        echo "\n${ERROR}zsh-autosuggestions is not installed"
+    else
+        echo "\n${COMPLETE}zsh-autosuggestions is installed"
+    fi
+
+    #Check Power10k
+    if [ ! -d ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k ]; then
+        echo "${ERROR}powerlevel10k is not installed"
+    else
+        echo "${COMPLETE}powerlevel10k is installed"
+    fi
+
+    #Check Fonts
+    if [ ! -f  $HOME/Library/Fonts/MesloLGS\ NF\ Regular.ttf ]; then
+         echo "${ERROR}Correct Font is not installed"
+    else
+        echo "${COMPLETE}Correct Font is installed"
+    fi
+
+    #Check p10k-custom
+    if [ ! -f $HOME/.p10k.zsh ]; then
+        echo "${ERROR}Correct p10k theme is not installed"
+    else
+        echo "${COMPLETE}Correct p10k theme is installed"
+    fi
+
+    #Check 42Commands
+    if [ ! -f $HOME/.42Commands ]; then
+        echo "${ERROR}Correct 42Commands is not installed"
+    else
+        echo "${COMPLETE}Correct 42Commands is installed"
+    fi
+}
+
+
 Help()
 {
    echo ""
    echo "42Hub installPackage beta 0.1 by zxcvbinz"
    echo
-   echo "Syntax: 42Hub install"
+   echo "Syntax: 42Hub [install | check]"
    echo
 }
 
 if [[ "$1" == "" ]]; then
     Help
+elif [[ "$1" == "check" ]]; then
+    checkInstallation
 elif [[ "$1" == "install" ]]; then
     installTerminalCustom
 fi

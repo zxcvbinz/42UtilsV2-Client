@@ -2,12 +2,17 @@
 
 normal=`tput sgr0`
 bold=`tput bold`
-orange=`tput setaf 172`
-green=`tput setaf 2`
+orange=`tput setaf 208`
+green=`tput setaf 46`
 magenta=`tput setaf 9`
+red=`tput setaf 196`
 WARN="${bold}[${orange}WARNING${normal}${bold}] "
-HINT="${bold}[${green}HINT${normal}${bold}] "
-COMPLETE="${bold}[${magenta}COMPLETE${normal}${bold}] "
+HINT="${bold}[${magenta}HINT${normal}${bold}] "
+COMPLETE="${bold}[${green}COMPLETE${normal}${bold}] "
+ERROR="${bold}[${red}ERROR${normal}${bold}] "
+
+SECURITY_MODE=1
+
 isInstalled() {
     if [ ! -d $HOME/.42utils ]; then
         return 0
@@ -50,8 +55,23 @@ Warning() {
     fi
 }
 
+checkOS() {
+    if [[ "$OSTYPE" != "darwin"* ]]; then
+        echo "${ERROR}You not run macOS system."
+        echo "${WARN}Disable 'SECURITY_MODE':14 for install untested version."
+        return 1
+    fi
+    return 0
+}
+
 if Warning; then
-    installUtils
+    if [[ "$SECURITY_MODE" == 1 ]]; then
+        if checkOS; then
+            installUtils
+        fi
+    else
+        installUtils
+    fi
 else
     echo "Abort."
 fi
