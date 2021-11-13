@@ -68,9 +68,11 @@ if Warning; then
     if [[ "$SECURITY_MODE" == 1 ]]; then
         if checkOS; then
             installUtils
+            exec zsh
         fi
     else
         installUtils
+        exec zsh
     fi
 else
     echo "Abort."

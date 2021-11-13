@@ -1,2 +1,2 @@
-Version: 42utils version 0.1.7-update-edition
+Version: 42Commands V2 version 1.1-Utils-version
 

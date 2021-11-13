@@ -140,7 +140,7 @@ demoProgramUpdate() {
 Help()
 {
    echo ""
-   echo "${bold}42Hub installPackage ${red}beta${normal}${bold} 0.1 by zxcvbinz${normal}"
+   echo "${bold}42Hub installPackage ${red}beta${normal}${bold} 1.0 by zxcvbinz${normal}"
    echo
    echo "${HINT}Syntax: 42Hub ${red}[${normal}${bold}install | check | update${red}]${normal}${bold}"
    echo
