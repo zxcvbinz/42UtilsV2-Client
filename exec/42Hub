@@ -116,8 +116,19 @@ checkInstallation() {
     fi
 }
 
-update() {
+normalUpdate() {
     cd $HOME/.42utils
+    message=$(git pull)
+    if [[ "$message" == "Already up to date." ]]; then
+        echo "\n${WARN}$message"
+    else
+        echo "\n${COMPLETE}Updated all."
+    fi
+}
+
+demoProgramUpdate() {
+    cd $HOME/.42utils
+    demo=$(git checkout develop)
     message=$(git pull)
     if [[ "$message" == "Already up to date." ]]; then
         echo "\n${WARN}$message"
@@ -140,7 +151,11 @@ if [[ "$1" == "" ]]; then
 elif [[ "$1" == "check" ]]; then
     checkInstallation
 elif [[ "$1" == "update" ]]; then
-    update
+    if [[ "$2" == "" ]]; then
+        normalUpdate
+    elif [[ "$2" == "demo" ]]; then
+        demoProgramUpdate
+    fi
 elif [[ "$1" == "install" ]]; then
     installTerminalCustom
 fi
