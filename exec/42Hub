@@ -12,9 +12,9 @@ COMPLETE="${bold}[${green}COMPLETE${normal}${bold}] "
 ERROR="${bold}[${red}ERROR${normal}${bold}] "
 
 installCustomCommands() {
-     if [ ! -f $HOME/.42Commands ]; then
+     if [ ! -d $HOME/.42Commands ]; then
         mkdir $HOME/.42Commands
-        cp $HOME/.42utils/utilsV1/42Commands/* $HOME/.42Commands/*
+        cp $HOME/.42utils/utilsV1/42Commands/* $HOME/.42Commands/
         echo "${COMPLETE}Correct 42Commands is installed, reload the terminal to complete.\n"
     else
         echo "${WARN}Correct 42Commands is installed, reload the terminal to complete.\n"
@@ -26,7 +26,7 @@ customConfigP10k() {
         cp $HOME/.42utils/exec/main/.p10k.zsh $HOME/
         echo "${COMPLETE}Correct p10k theme is installed, reload the terminal to complete.\n"
     else
-        echo "${WARN}Correct p10k theme is installed, reload the terminal to complete.\n"
+        echo "${WARN}Correct p10k theme is installed, reload the terminal to complete."
     fi
 }
 
@@ -35,15 +35,16 @@ installFonts() {
         cp $HOME/.42utils/exec/main/Fonts/* $HOME/Library/Fonts/
         echo "${COMPLETE}Correct Font is installed, reload the system if you don't see.\n"
     else
-        echo "${WARN}Correct Font is installed, reload the system if you don't see.\n"
+        echo "${WARN}Correct Font is installed, reload the system if you don't see."
     fi
 }
 
 installPower10kBasic() {
     if [ ! -d ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k ]; then
-        git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-    else
+        result_power_10k_install=$(git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k)
         echo "\n${COMPLETE}powerlevel10k is installed\n"
+    else
+        echo "\n${WARN}powerlevel10k is installed"
     fi
     if [ -d $HOME/.zshrc ]; then
         echo "${WARN}deleted original zshrc"
@@ -53,7 +54,7 @@ installPower10kBasic() {
     cp $HOME/.42utils/exec/main/zsh_config $HOME/.zshrc
 
     if [ -f $HOME/.zshrc ]; then
-        echo "${COMPLETE}Correct zshrc file is installed"
+        echo "${WARN}Correct zshrc file is installed"
     else
         echo "${ERROR}Error with zshrc install"
     fi
@@ -61,9 +62,10 @@ installPower10kBasic() {
 
 installPowerAutoSuggestions() {
     if [ ! -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions ]; then
-        git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-    else
+        result_auto_suggestions=$(git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions)
         echo "\n${COMPLETE}zsh-autosuggestions is installed\n"
+    else
+        echo "${WARN}zsh-autosuggestions is installed"
     fi
 }
 
@@ -107,7 +109,7 @@ checkInstallation() {
     fi
 
     #Check 42Commands
-    if [ ! -f $HOME/.42Commands ]; then
+    if [ ! -d $HOME/.42Commands ]; then
         echo "${ERROR}Correct 42Commands is not installed"
     else
         echo "${COMPLETE}Correct 42Commands is installed"
@@ -127,9 +129,9 @@ update() {
 Help()
 {
    echo ""
-   echo "42Hub installPackage beta 0.1 by zxcvbinz"
+   echo "${bold}42Hub installPackage ${red}beta${normal}${bold} 0.1 by zxcvbinz${normal}"
    echo
-   echo "Syntax: 42Hub [install | check]"
+   echo "${HINT}Syntax: 42Hub ${red}[${normal}${bold}install | check | update${red}]${normal}${bold}"
    echo
 }
 
