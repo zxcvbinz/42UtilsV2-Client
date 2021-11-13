@@ -29,16 +29,6 @@ else
 	brew install --cask visual-studio-code
 fi
 
-if [ -d "$HOME/goinfre/.Applications/Godot.app/" ]; then
-	clear;
-elif [ -d "$HOME/goinfre/.brew/Caskroom/godot" ]; then
-	brew cleanup
-	brew reinstall visual-studio-code
-else
-	brew cleanup
-	brew install --cask godot
-fi
-
 if [ -d "$HOME/goinfre/.Applications/Postman.app/" ]; then
 	clear;
 elif [ -d "$HOME/goinfre/.brew/Caskroom/postman" ]; then

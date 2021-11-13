@@ -113,6 +113,9 @@ else
 	export PATH="$HOME/goinfre/.test/.brew/bin:$HOME/goinfre/.test/.brew/sbin:$PATH";
 fi
 
+#42Hub option
+export PATH="$HOME/.42utils/exec:$PATH"
+
 osascript -e 'tell app "System Events" to tell appearance preferences to set dark mode to 1'
 
 export PATH="/goinfre/.test/.brew/opt/openjdk/bin:$PATH"

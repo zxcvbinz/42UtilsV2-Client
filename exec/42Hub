@@ -13,7 +13,7 @@ ERROR="${bold}[${red}ERROR${normal}${bold}] "
 
 installCustomCommands() {
      if [ ! -f $HOME/.42Commands ]; then
-        mdkir $HOME/.42Commands
+        mkdir $HOME/.42Commands
         cp $HOME/.42utils/utilsV1/42Commands/* $HOME/.42Commands/*
         echo "${COMPLETE}Correct 42Commands is installed, reload the terminal to complete.\n"
     else
@@ -114,6 +114,15 @@ checkInstallation() {
     fi
 }
 
+update() {
+    cd $HOME/.42utils
+    message=$(git pull)
+    if [[ "$message" == "Already up to date." ]]; then
+        echo "\n${WARN}$message"
+    else
+        echo "\n${COMPLETE}Updated all."
+    fi
+}
 
 Help()
 {
@@ -128,6 +137,8 @@ if [[ "$1" == "" ]]; then
     Help
 elif [[ "$1" == "check" ]]; then
     checkInstallation
+elif [[ "$1" == "update" ]]; then
+    update
 elif [[ "$1" == "install" ]]; then
     installTerminalCustom
 fi
